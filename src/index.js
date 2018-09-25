@@ -1,4 +1,4 @@
-import { from, Subscriber } from "rxjs";
+import { from, Subscriber, Observable } from "rxjs";
 
 const observable$ = from([1, 2, 3, 4, 5]);
 const subscriber = {
@@ -12,4 +12,12 @@ class DoubleSubscriber extends Subscriber {
     this.destination.next(value * 2);
   }
 }
-observable$.subscribe(new DoubleSubscriber(subscriber));
+
+const o$ = new Observable();
+o$.operator = {
+  call() {
+    observable$.subscribe(new DoubleSubscriber(subscriber));
+  }
+};
+
+o$.subscribe();
