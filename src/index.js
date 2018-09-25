@@ -15,7 +15,7 @@ class DoubleSubscriber extends Subscriber {
 observable$
   .pipe(source => {
     const o$ = new Observable();
-    o$.source = observable$;
+    o$.source = source;
     o$.operator = {
       call(sub, source) {
         observable$.subscribe(new DoubleSubscriber(sub));
