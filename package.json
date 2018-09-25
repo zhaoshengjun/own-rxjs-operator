@@ -1,0 +1,9 @@
+{
+  "name": "own-rxjs-operator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "rxjs": "^6.3.2"
+  }
+}
