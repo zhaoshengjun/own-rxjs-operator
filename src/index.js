@@ -7,16 +7,20 @@ const subscriber = {
   error: err => console.trace(err)
 };
 
-class DoubleSubscriber extends Subscriber {
+class MultiplySubscriber extends Subscriber {
+  constructor(number, subscriber) {
+    super(subscriber);
+    this.number = number;
+  }
   _next(value) {
-    this.destination.next(value * 2);
+    this.destination.next(value * this.number);
   }
 }
-const double = source =>
+const multiply = number => source =>
   source.lift({
     call(sub, source) {
-      observable$.subscribe(new DoubleSubscriber(sub));
+      observable$.subscribe(new MultiplySubscriber(number, sub));
     }
   });
 
-observable$.pipe(double).subscribe(subscriber);
+observable$.pipe(multiply(3)).subscribe(subscriber);
