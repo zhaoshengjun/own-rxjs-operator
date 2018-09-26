@@ -1,4 +1,5 @@
-import { from, Subscriber, Observable } from "rxjs";
+import { from } from "rxjs";
+import { multiply } from "./multiply";
 
 const observable$ = from([1, 2, 3, 4, 5]);
 const subscriber = {
@@ -7,20 +8,5 @@ const subscriber = {
   error: err => console.trace(err)
 };
 
-class MultiplySubscriber extends Subscriber {
-  constructor(number, subscriber) {
-    super(subscriber);
-    this.number = number;
-  }
-  _next(value) {
-    this.destination.next(value * this.number);
-  }
-}
-const multiply = number => source =>
-  source.lift({
-    call(sub, source) {
-      observable$.subscribe(new MultiplySubscriber(number, sub));
-    }
-  });
-
 observable$.pipe(multiply(3)).subscribe(subscriber);
+observable$.pipe(multiply(5)).subscribe(subscriber);
