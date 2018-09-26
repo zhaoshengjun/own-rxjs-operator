@@ -1,18 +1,3 @@
-import { Subscriber } from "rxjs";
+import { map } from "rxjs/operators";
 
-class MultiplySubscriber extends Subscriber {
-  constructor(number, subscriber) {
-    super(subscriber);
-    this.number = number;
-  }
-  _next(value) {
-    this.destination.next(value * this.number);
-  }
-}
-
-export const multiply = number => source =>
-  source.lift({
-    call(sub, source) {
-      source.subscribe(new MultiplySubscriber(number, sub));
-    }
-  });
+export const multiply = number => map(value => value * number);
