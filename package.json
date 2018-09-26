@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "parcel build src/index.js -d dist && node dist/index.js"
+  },
   "devDependencies": {
     "rxjs": "^6.3.2"
   }
