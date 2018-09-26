@@ -12,15 +12,15 @@ class DoubleSubscriber extends Subscriber {
     this.destination.next(value * 2);
   }
 }
-observable$
-  .pipe(source => {
-    const o$ = new Observable();
-    o$.source = source;
-    o$.operator = {
-      call(sub, source) {
-        observable$.subscribe(new DoubleSubscriber(sub));
-      }
-    };
-    return o$;
-  })
-  .subscribe(subscriber);
+const double = source => {
+  const o$ = new Observable();
+  o$.source = source;
+  o$.operator = {
+    call(sub, source) {
+      observable$.subscribe(new DoubleSubscriber(sub));
+    }
+  };
+  return o$;
+};
+
+observable$.pipe(double).subscribe(subscriber);
