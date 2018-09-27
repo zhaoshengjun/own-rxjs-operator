@@ -1,5 +1,6 @@
 import { map, filter } from "rxjs/operators";
-import { pipe } from "rxjs";
+
+const pipe = (...fns) => source => fns.reduce((acc, fn) => fn(acc), source);
 
 export const multiply = number =>
   pipe(
